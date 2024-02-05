@@ -40,7 +40,7 @@ object Script {
     val contentFileAxT: List[Map[String, String]] = reader2.allWithHeaders()
     reader.close()
 
-    //generateData2SquadsTable(contentFileAxT).foreach(insert => insert.run.transact(xa).unsafeRunSync())
+    generateData2PlayersTable(contentFileAxT).foreach(insert => insert.run.transact(xa).unsafeRunSync())
     
 
 
@@ -187,68 +187,6 @@ object Script {
 
     goals
 
-  
 
-//    if (cadena.contains("/") || cadena.contains("-")) {
-//      val separado = cadena.split("/")
-//      Some(s"${separado(2)}-${separado(0)}-${separado(1)}")
-//    } else if (cadena.contains("-")){
-//      val separado = cadena.split("-")
-//      Some(s"${separado(2)}-${separado(0)}-${separado(1)}")
-//    } else {
-//      None
-//    }
-//    val estadios = data.map(k => (k("matches_stadium_id"),k("stadiums_stadium_name"),k("stadiums_city_name"),k("stadiums_country_name"),k("stadiums_stadium_capacity") )).distinct
-//    // Sentencia Estadios
-//    // estadios.foreach(k => println(s"INSERT INTO stadiums VALUES(${k._1},${k._2},${k._3},${k._4},${k._5})"))
-//
-//    val tournaments = contentFile3.map(k => (
-//      k("matches_tournament_id"),
-//      k("tournaments_tournament_name"),
-//      k("tournaments_year"),
-//      k("tournaments_host_country"),
-//      k("tournaments_winner"),
-//      k("tournaments_count_teams"))).distinct
-//    // Sentencia torneos
-//    // tournaments.foreach(k => println(s"INSERT INTO tournaments values(${k._1},${k._2},${k._3}),${k._4},${k._5},${k._6}"))
-//
-//    val teams = contentFile3.map(k => (
-//      k("matches_home_team_id"),
-//      k("home_team_name"),
-//      k("home_mens_team"),
-//      k("home_womens_team"),
-//      k("home_region_name"))).distinct
-//    // Sentencia equipos
-//    // teams.foreach(k => println(s"INSERT INTO teams VALUES(${k._1},${k._2},${k._3},${k._4},${k._5})"))
-//
-//    val matches = contentFile3.map(k => (
-//      k("matches_match_id"),
-//      k("matches_match_date"),
-//      k("matches_match_time"),
-//      k("matches_stage_name"),
-//      k("matches_home_team_score"),
-//      k("matches_away_team_score"),
-//      k("matches_extra_time"),
-//      k("matches_penalty_shootout"),
-//      k("matches_home_team_score_penalties"),
-//      k("matches_away_team_score_penalties"),
-//      k("matches_result"),
-//      k("matches_stadium_id"),
-//      k("matches_tournament_id"))).distinct
-//    // Sentencia matches
-//    // matches.foreach(k => println(s"INSERT INTO matches VALUES(${k._1}," +
-//    //  s"${k._2},${k._3},${k._4},${k._5},${k._6},${k._7},${k._8},${k._9},${k._10},${k._11}" +
-//    //  s"${k._12},${k._13})"))
-//
-//    val teamMatch = contentFile3.map(k => (
-//      k("matches_match_id"),
-//      k("matches_home_team_id"),
-//      k("matches_away_team_id"))).distinct
-//    // Setencia teamMatch
-////    var i = 0
-////    for (k <- teamMatch) {
-////      i = i+1
-////      println(s"INSER INTO teammatch VALUES($i,${k._1},${k._2},${k._3})")
-////    }
 
 }

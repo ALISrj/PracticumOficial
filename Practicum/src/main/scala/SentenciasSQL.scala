@@ -79,7 +79,7 @@ object SentenciasSQL {
       .to[List]
 
   def fechaNacimiento(fecha:String): ConnectionIO[List[Jugador]] =
-    sql"SELECT p.familyName, p.givenName, p.birthday FROM players p WHERE DATE_FORMAT(p.birthday, '%m-%d') = $fecha"
+    sql"SELECT p.familyName, p.givenName, p.birthdate FROM players p WHERE DATE_FORMAT(p.birthdate, '%m-%d') = $fecha"
       .query[Jugador]
       .to[List]
 }
