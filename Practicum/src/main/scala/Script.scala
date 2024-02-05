@@ -40,7 +40,7 @@ object Script {
     val contentFileAxT: List[Map[String, String]] = reader2.allWithHeaders()
     reader.close()
 
-    generateData2PlayersTable(contentFileAxT).foreach(insert => insert.run.transact(xa).unsafeRunSync())
+    generateData2GoalsTable(contentFilePyG).foreach(insert => insert.run.transact(xa).unsafeRunSync())
     
 
 
@@ -172,18 +172,19 @@ object Script {
     val goals = data
       .map(k => (k("goals_goal_id"),
         k("goals_minute_label"),
-        k("goals_minute_regulation").toInt,
-        k("goals_minute_stoppage").toInt,
+        k("goals_minute_regulation"),
+        k("goals_minute_stoppage"),
         k("goals_match_period"),
-        k("goals_own_goal").toInt,
-        k("goals_penalty").toInt,
+        k("goals_own_goal"),
+        k("goals_penalty"),
         k("matches_match_id"),
         k("goals_player_id"),
+        k("goals_player_team_id"),
         k("goals_team_id"),
         k("matches_tournament_id"))
       )
       .filterNot(_._1 == "NA")
-      .map(tupla11 => sql"INSERT INTO goals VALUES(${tupla11._1},${tupla11._2},${tupla11._3},${tupla11._4},${tupla11._5},${tupla11._6},${tupla11._7},${tupla11._8},${tupla11._9},${tupla11._10},${tupla11._11})".update)
+      .map(tupla12 => sql"INSERT INTO goals VALUES(${tupla12._1},${tupla12._2},${tupla12._3.toInt},${tupla12._4.toInt},${tupla12._5},${tupla12._6.toInt},${tupla12._7.toInt},${tupla12._8},${tupla12._9},${tupla12._10},${tupla12._11},${tupla12._12})".update)
 
     goals
 
