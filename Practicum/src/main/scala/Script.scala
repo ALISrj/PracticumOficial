@@ -45,8 +45,8 @@ object Script {
 
 
   def generateData2CountriesTable(data: List[Map[String,String]]) =
-    val insertFormat = s"INSERT INTO countries VALUES(%d,'%s');"
-    val countries = data
+    val insertFormat: String = s"INSERT INTO countries VALUES(%d,'%s');"
+    val countries: List[String] = data
       .map(k => (k("IdAway").toInt,k("away_team_name"))) // Obtenemos los paises junto a su ID
       .distinct // Eliminamos los repetidos
       .sorted
@@ -55,8 +55,8 @@ object Script {
     countries.foreach(println)
 
   def generateData2TournamentsTable(data: List[Map[String,String]]) =
-    val insertFormat = s"INSERT INTO tournaments VALUES('%s','%s',%d,%d,%d);"
-    val tournaments = data
+    val insertFormat: String = s"INSERT INTO tournaments VALUES('%s','%s',%d,%d,%d);"
+    val tournaments: List[String] = data
       .map(
         k => (k("matches_tournament_id"),
           k("tournaments_tournament_name").replaceAll("'","\\\\'"),
@@ -70,8 +70,8 @@ object Script {
     tournaments.foreach(println)
 
   def generateData2StadiumsTable(data: List[Map[String,String]]) =
-    val insertFormat = s"INSERT INTO stadiums VALUES('%s','%s','%s',%d,%d);"
-    val stadiums = data
+    val insertFormat: String = s"INSERT INTO stadiums VALUES('%s','%s','%s',%d,%d);"
+    val stadiums:List[String] = data
       .map(
         k => (k("matches_stadium_id"),
           k("stadiums_stadium_name").replaceAll("'","\\\\'"),
@@ -86,8 +86,8 @@ object Script {
       stadiums.foreach(println)
 
   def generateData2TeamsTable(data: List[Map[String,String]]) =
-    val insertFormat = s"INSERT INTO teams VALUES('%s',%d,%d,%d,'%s');"
-    val teams = data
+    val insertFormat: String = s"INSERT INTO teams VALUES('%s',%d,%d,%d,'%s');"
+    val teams: List[String] = data
       .map(k => (k("matches_away_team_id"),
         k("IdAway").toInt,
         k("away_mens_team").toInt,
@@ -102,8 +102,8 @@ object Script {
     println(teams.size)
 
   def generateData2HostcountriesTable(data: List[Map[String,String]]) =
-    val insertFormat = s"INSERT INTO hostcountries (countryId, tournamentId) VALUES(%d,'%s');"
-    val hostCountries = data
+    val insertFormat: String = s"INSERT INTO hostcountries (countryId, tournamentId) VALUES(%d,'%s');"
+    val hostCountries: List[String] = data
       .map( k => (k("hostcountryid"),k("matches_tournament_id")))
       .distinct
       .filterNot(_._2 == "WC-2002")
@@ -115,7 +115,7 @@ object Script {
 
   def generateData2SquadsTable(data: List[Map[String,String]]) =
     val squads = data
-      .map( k=> (k("squads_player_id"),
+      .map(k => (k("squads_player_id"),
         k("squads_tournament_id"),
         k("squads_team_id"),
         k("squads_shirt_number").toInt,

@@ -37,7 +37,7 @@ object EstadisticasDescriptivas {
 
   // ? Cuál es el número de goles más regular que un equipo local marca?
   def modaGolesLocal(data: List[Map[String, String]]) =
-    val goles = data
+    val goles: (String, Int) = data
       .map(k => (k("matches_match_id"), k("matches_home_team_score")))
       .distinct // Lista de tuplas
       .map(_._2) // Lista de Strings
@@ -49,7 +49,7 @@ object EstadisticasDescriptivas {
 
   // ? Cuál región ha mandado más paises al mundial y cual ha mandado menos paises?
   def minMaxRegiones(data: List[Map[String, String]]) =
-    val regiones = data
+    val regiones: Map[String, Int] = data
       .map(k => (k("matches_away_team_id"), k("away_region_name"))) // Lista de tuplas
       .distinct
       .groupBy(_._2) // Mapa [String, List[String]]
@@ -60,7 +60,7 @@ object EstadisticasDescriptivas {
 
   // ? Cuál es la frecuencia de empates?
   def drawFrecuencia(data: List[Map[String, String]]) =
-    val draw = data
+    val draw: Int = data
       .map(k => (k("matches_match_id"), k("matches_result")))
       .distinct
       .map(_._2) // Nos quedamos con los resultados
@@ -71,7 +71,7 @@ object EstadisticasDescriptivas {
 
   // ? En cuántas alineaciones se ha usado el número 21?
   def alineacions21(data: List[Map[String, String]]) =
-    val alineaciones = data
+    val alineaciones: Int = data
       .map(k => (k("squads_player_id"), k("squads_tournament_id"), k("squads_shirt_number")))
       .count(_._3 == "21")
 
@@ -79,7 +79,7 @@ object EstadisticasDescriptivas {
 
   // ¿ Frecuencia de jugadores que han jugado como arqueros y  delanteros?
   def goalkepperForward(data: List[Map[String, String]]) =
-    val jugadores = data
+    val jugadores: Int = data
       .map(k => (k("squads_player_id"), k("players_goal_keeper"), k("players_forward")))
       .distinct
       .count(k => k._2 == "1" && k._3 == "1")

@@ -67,7 +67,7 @@ object Graficas {
 
   // 1era Grafica dataset - autogoles por mundiales
   def datosGrafica(data: List[Map[String, String]]): List[(String, Int)] =
-    val autogoles = data
+    val autogoles: List[(String, Int)] = data
       .map(row => (
         row("tournaments_year"),
         row("goals_own_goal"),
@@ -118,11 +118,12 @@ object Graficas {
 
   // 3era Gráfica dataset - Ganador de los mundiales y cuántos mundiales tienen
   def ganadoresBarPlot(data: List[Map[String, String]]) =
-    val ganadores = data
-      .map(k => (k("matches_tournament_id"),k("tournaments_winner")))
+    val ganadores: List[(String, Double)] = data
+      .map(k => (k("matches_tournament_id"), k("tournaments_winner")))
       .distinct
       .groupBy(_._2)
-      .map(k => (k._1,k._2.size.toDouble))
+      .map(k => (k._1, k._2.size.toDouble))
+      .toList
 
     val indices = Index(ganadores.map(value => value._1).toArray)
     val values = Vec(ganadores.map(value => value._2).toArray)
@@ -169,8 +170,8 @@ object Graficas {
 
   def goleadoresBarPlot(lista: List[(String, Double)]) =
 
-    val indices = Index(lista.map(value => value._1).toArray)
-    val values = Vec(lista.map(value => value._2.toDouble).toArray)
+    val indices: Index[String] = Index(lista.map(value => value._1).toArray)
+    val values: Vec[Double] = Vec(lista.map(value => value._2.toDouble).toArray)
 
     val series = Series(indices, values)
 
@@ -194,8 +195,8 @@ object Graficas {
       .to[List]
 
   def resultadoBarPlot(lista: List[(String, Double)]) =
-    val indices = Index(lista.map(value => value._1).toArray)
-    val values = Vec(lista.map(value => value._2.toDouble).toArray)
+    val indices: Index[String] = Index(lista.map(value => value._1).toArray)
+    val values: Vec[Double] = Vec(lista.map(value => value._2.toDouble).toArray)
 
     val series = Series(indices, values)
 
