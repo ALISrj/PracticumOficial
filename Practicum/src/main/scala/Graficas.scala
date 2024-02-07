@@ -183,7 +183,7 @@ object Graficas {
   def goleadoresBarPlot(lista: List[(String, Double)]) =
 
     val indices: Index[String] = Index(lista.map(value => value._1).toArray)
-    val values: Vec[Double] = Vec(lista.map(value => value._2.toDouble).toArray)
+    val values: Vec[Double] = Vec(lista.map(value => value._2).toArray)
 
     val series = Series(indices, values)
 
@@ -208,7 +208,7 @@ object Graficas {
 
   def resultadoBarPlot(lista: List[(String, Double)]) =
     val indices: Index[String] = Index(lista.map(value => value._1).toArray)
-    val values: Vec[Double] = Vec(lista.map(value => value._2.toDouble).toArray)
+    val values: Vec[Double] = Vec(lista.map(value => value._2).toArray)
 
     val series = Series(indices, values)
 

@@ -130,7 +130,10 @@ object Script {
         k("squads_shirt_number").toInt,
         k("squads_position_name"))
       )
-      .map(tupla5 => sql"INSERT INTO squads VALUES(${tupla5._1},${tupla5._2},${tupla5._3},${tupla5._4},${tupla5._5})".update)
+      .map(tupla5 =>
+        sql"""INSERT INTO squads
+             VALUES(${tupla5._1},${tupla5._2},${tupla5._3},${tupla5._4},${tupla5._5})
+             """.update)
     squads
 
   def generateData2PlayersTable(data: List[Map[String,String]]) =
