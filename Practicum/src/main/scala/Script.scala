@@ -148,7 +148,12 @@ object Script {
         k("players_midfielder").toInt,
         k("players_forward").toInt))
       .distinct
-      .map(tupla9 =>  sql"INSERT INTO players VALUES(${tupla9._1},${tupla9._2},${tupla9._3},${tupla9._4},${tupla9._5},${tupla9._6},${tupla9._7},${tupla9._8},${tupla9._9})".update)
+      .map(tupla9 =>
+        sql"""INSERT INTO players
+              VALUES(${tupla9._1},${tupla9._2},${tupla9._3},${tupla9._4},
+              ${tupla9._5},${tupla9._6},${tupla9._7},${tupla9._8},${tupla9._9})
+           """
+          .update)
     players
 
   def fechas(cadena:String): Option[String] =
@@ -176,7 +181,11 @@ object Script {
         k("matches_home_team_id"),
         k("matches_away_team_id"))
       ).distinct
-      .map(tupla15 =>  sql"INSERT INTO matches VALUES(${tupla15._1},${tupla15._2},${tupla15._3},${tupla15._4},${tupla15._5},${tupla15._6},${tupla15._7},${tupla15._8},${tupla15._9},${tupla15._10},${tupla15._11},${tupla15._12},${tupla15._13},${tupla15._14},${tupla15._15})".update)
+      .map(tupla15 =>
+        sql"""INSERT INTO matches VALUES(${tupla15._1},${tupla15._2},${tupla15._3},${tupla15._4}
+             ,${tupla15._5},${tupla15._6},${tupla15._7},${tupla15._8},${tupla15._9},${tupla15._10}
+             ,${tupla15._11},${tupla15._12},${tupla15._13},${tupla15._14},${tupla15._15})
+             """.update)
 
       matches
 
@@ -196,7 +205,11 @@ object Script {
         k("matches_tournament_id"))
       )
       .filterNot(_._1 == "NA")
-      .map(tupla12 => sql"INSERT INTO goals VALUES(${tupla12._1},${tupla12._2},${tupla12._3.toInt},${tupla12._4.toInt},${tupla12._5},${tupla12._6.toInt},${tupla12._7.toInt},${tupla12._8},${tupla12._9},${tupla12._10},${tupla12._11},${tupla12._12})".update)
+      .map(tupla12 =>
+        sql"""INSERT INTO goals VALUES(${tupla12._1},${tupla12._2},${tupla12._3.toInt},
+          ${tupla12._4.toInt},${tupla12._5},${tupla12._6.toInt},${tupla12._7.toInt},${tupla12._8},${tupla12._9},
+          ${tupla12._10},${tupla12._11},${tupla12._12})
+          """.update)
 
     goals
 
