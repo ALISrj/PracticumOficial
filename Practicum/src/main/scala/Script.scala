@@ -35,13 +35,22 @@ object Script {
     reader.close()
 
     // Leer Csv ALineaciones x Torneo
-    val pathDataFile2: String = "Data\\dsAlineacionesXTorneo8.csv"
+    val pathDataFile2: String = "Data\\dsAlineacionesXTorne o8.csv"
     val reader2: CSVReader = CSVReader.open(new File(pathDataFile2))
     val contentFileAxT: List[Map[String, String]] = reader2.allWithHeaders()
     reader.close()
 
+//    generateData2CountriesTable(contentFilePyG)
+//    generateData2TournamentsTable(contentFilePyG)
+//    generateData2StadiumsTable(contentFilePyG)
+//    generateData2TeamsTable(contentFilePyG)
+//    generateData2HostcountriesTable(contentFilePyG)
+
+    generateData2SquadsTable(contentFileAxT).foreach(insert => insert.run.transact(xa).unsafeRunSync())
+    generateData2PlayersTable(contentFileAxT).foreach(insert => insert.run.transact(xa).unsafeRunSync())
+    generateData2MatchesTable(contentFilePyG).foreach(insert => insert.run.transact(xa).unsafeRunSync())
     generateData2GoalsTable(contentFilePyG).foreach(insert => insert.run.transact(xa).unsafeRunSync())
-    
+
 
 
   def generateData2CountriesTable(data: List[Map[String,String]]) =

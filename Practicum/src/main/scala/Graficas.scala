@@ -145,7 +145,12 @@ object Graficas {
 
   // 1er Gráfica BD - Información de goles de dos equipos
   def infoGolesEquipo(id1:String, id2: String): ConnectionIO[List[Equipo]] =
-    sql"SELECT c.name , COUNT(g.goalId) FROM goals g INNER JOIN teams t ON g.teamId = t.teamId INNER JOIN countries c ON c.countryId = t.nameCountryId WHERE t.teamId = $id1|| t.teamId = $id2 GROUP BY g.matchId, g.teamId"
+    sql"""SELECT c.name , COUNT(g.goalId)
+         FROM goals g
+         INNER JOIN teams t ON g.teamId = t.teamId
+         INNER JOIN countries c ON c.countryId = t.nameCountryId
+         WHERE t.teamId = $id1 || t.teamId = $id2
+         GROUP BY g.matchId, g.teamId"""
       .query[Equipo]
       .to[List]
 
@@ -164,7 +169,14 @@ object Graficas {
 
   // 2da Gráfica BD - ¿Jugadores que han marcado más de 10 goles en mundiales?
   def Goleadores(goles: Int): ConnectionIO[List[Jugador1]] =
-    sql"SELECT p.familyName, p.givenName, COUNT(g.goalId) FROM goals g INNER JOIN players p ON g.playerId = p.playerId GROUP BY p.playerId HAVING COUNT(g.goalId) > $goles ORDER BY 3;"
+    sql"""
+         SELECT p.familyName, p.givenName, COUNT(g.goalId)
+         FROM goals g
+         INNER JOIN players p ON g.playerId = p.playerId
+         GROUP BY p.playerId
+         HAVING COUNT(g.goalId) > $goles
+         ORDER BY 3
+         """
       .query[Jugador1]
       .to[List]
 
